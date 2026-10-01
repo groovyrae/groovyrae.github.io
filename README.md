@@ -2,7 +2,9 @@
 
 Personal portfolio showcasing my hackathon projects and work.
 
-🔗 **Live site:** https://groovyrae.github.io
+🔗 **Live site:** https://<username>.github.io
+
+![Screenshot](screenshot.png)
 
 ## About
 Built with a modified version of [gitfolio](https://github.com/imfunniee/gitfolio) (MIT License).
