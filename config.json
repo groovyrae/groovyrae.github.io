@@ -6,7 +6,7 @@
   "sort": "updated",
   "order": "desc",
   "includeFork": true,
-  "theme": "dark.css",
+  "theme": "light.css",
   "types": [
    "all"
   ]

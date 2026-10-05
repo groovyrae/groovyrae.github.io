@@ -16,8 +16,9 @@
     </div>
     <div id="profile">
       <div id="profile_img" style="background: url(https://avatars.githubusercontent.com/u/93627683?v=4) center;"></div>
-      <div id="username"><span style="display:block;">Raégen Ellis</span><a href="https://github.com/groovyrae">@groovyrae</a></div>
-      <div id="userbio" style="display: none;">undefined</div>
+      <div id="username">
+        <span style="display:block;">Raégen Ellis (she/her)</span><a href="https://github.com/groovyrae">@groovyrae</a></div>
+      <div id="userbio" style="display:none;">undefined</div>
       <div id="about">
                 <span style="display:block;"><i class="fas fa-book-bookmark"></i> &nbsp; Computer Science (Games)</span>
                 <span style="display:block;"><i class="fas fa-map-marker-alt"></i> &nbsp;&nbsp; University of Southern California</span>
@@ -28,12 +29,12 @@
                 </div>
                 </div>
     </div>
-    <header id="header">
+    <header id="header" class="header_style">
       <nav id="navbar">
-        <a style="display:inline;" href="#work" class="nav_link">Work</a>
-        <a style="display:inline;" href="#forks" class="nav_link">Forks</a>
-        <a style="display:none;" href="#resume" class="nav_link">Resume</a>
-        <a style="display:none;" href="#pixelage" class="nav_link">Pixelage</a>
+        <a style="display:inline;" href="#work" data-section="work">Work</a>
+        <a style="display:inline;" href="#forks" data-section="forks">Forks</a>
+        <a style="display:none;" href="#resume">Resume</a>
+        <a style="display:none;" href="#pixelage">Pixelage</a>
       </nav>
     </header>
     <div id="display">
@@ -44,7 +45,7 @@
                         <section>
                             <div class="section_title">groovyrae.github.io</div>
                             <div class="about_section">
-                            <span style="display:none">undefined</span>
+                            <span style="display:block">Porfolio Website</span>
                             </div>
                             <div class="bottom_section">
                                 <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; HTML</span>
@@ -62,20 +63,6 @@
                             </div>
                             <div class="bottom_section">
                                 <span style="display:none;"><i class="fas fa-code"></i>&nbsp; null</span>
-                                
-                                <span><i class="fas fa-star"></i>&nbsp; 0</span>
-                                <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
-                            </div>
-                        </section>
-                        </a>
-                        <a href="https://github.com/groovyrae/pig-latin" target="_blank">
-                        <section>
-                            <div class="section_title">pig-latin</div>
-                            <div class="about_section">
-                            <span style="display:none">undefined</span>
-                            </div>
-                            <div class="bottom_section">
-                                <span style="display:inline-block;"><i class="fas fa-code"></i>&nbsp; Python</span>
                                 
                                 <span><i class="fas fa-star"></i>&nbsp; 0</span>
                                 <span><i class="fas fa-code-branch"></i>&nbsp; 0</span>
@@ -190,20 +177,16 @@
     <script>
       const magicProjectsGrid = new MagicGrid({
         container: "#work_section",
-        animate: false,
-        gutter: 30, // default gutter size
+        gutter: 30,
         static: true,
-        useMin: false,
         maxColumns: 2,
         useTransform: true
       });
 
       const magicForksGrid = new MagicGrid({
         container: "#forks_section",
-        animate: false,
-        gutter: 30, // default gutter size
+        gutter: 30,
         static: true,
-        useMin: false,
         maxColumns: 2,
         useTransform: true
       });
@@ -212,7 +195,34 @@
         magicProjectsGrid.listen();
         magicForksGrid.listen();
       });
+
+      const sectionLinks = document.querySelectorAll("[data-section]");
+      const sections = Array.from(sectionLinks, link =>
+        document.getElementById(link.dataset.section)
+      ).filter(Boolean);
+
+      function updateActiveSection() {
+        const headerOffset = document.getElementById("header").offsetHeight + 20;
+        const currentPosition = window.scrollY + headerOffset;
+        let currentSection = sections[0];
+
+        sections.forEach(section => {
+          if (section.offsetTop <= currentPosition) {
+            currentSection = section;
+          }
+        });
+
+        sectionLinks.forEach(link => {
+          link.classList.toggle(
+            "active",
+            link.dataset.section === currentSection.id
+          );
+        });
+      }
+
+      window.addEventListener("scroll", updateActiveSection);
+      window.addEventListener("resize", updateActiveSection);
+      updateActiveSection();
     </script>
-  
 
 </body></html>
